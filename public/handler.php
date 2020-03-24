@@ -1,11 +1,11 @@
 <?php
 
-function countdown(String $to)
+return function ($event)
 {
 	header("Content-type: image/png");
 
 	try {
-		$target = new DateTime($_GET['to']);
+		$target = new DateTime($event['to']);
 		$target_tz = $target->getTimezone();
 		$now = new DateTime('now', $target_tz);
 	} catch (\Throwable $th) {
