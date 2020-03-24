@@ -1,0 +1,9 @@
+service: php-countdown
+
+provider:
+  name: aws
+  runtime: php
+
+functions:
+  greeting:
+    handler: handler.countdown
