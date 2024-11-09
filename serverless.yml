@@ -2,22 +2,27 @@ service: app
 
 provider:
     name: aws
-    region: us-east-1
+    region: eu-central-1
     runtime: provided
+    apiGateway:
+        binaryMediaTypes:
+            - 'image/png'
+    environment:
+        BREF_BINARY_RESPONSES: 1
 
 plugins:
     - ./vendor/bref/bref
 
 functions:
-    api:
+    countdown:
         handler: public/handler.php
         description: ''
         timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
         layers:
-            - ${bref:layer.php-73-fpm}
+            - arn:aws:lambda:eu-central-1:209497400698:layer:php-74-fpm:5
         events:
-            -   http: 'ANY /'
-            -   http: 'ANY /{proxy+}'
+            -   http: 'GET /'
+            -   http: 'GET /{to}'
 
 # Exclude files from deployment
 package:
